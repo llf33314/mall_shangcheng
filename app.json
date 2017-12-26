@@ -1,0 +1,56 @@
+{
+  "pages":[
+    "pages/listShop/listShop",
+    "pages/logistics/logistics",
+    "pages/navAddress/navAddress",
+    "pages/refund/refund",
+    "pages/detailedOrder/detailedOrder",
+    "pages/myOrder/myOrder",
+    "pages/index/index",
+    "pages/detailedCommodity/detailedCommodity",
+    "pages/addAddress/addAddress",
+    "pages/myAddress/myAddress",
+    "pages/order/order",
+    "pages/classification/classification",
+    "pages/twoMenu/twoMenu",
+    "pages/shop/shop",
+    "pages/user/user"
+  ],
+  "ext": {
+    "name": "wechat",
+    "attr": {
+      "host": "open.weixin.qq.com",
+      "users": [
+        "user_1",
+        "user_2"
+      ]
+    }
+  },
+  "tabBar": {
+    "color": "#7c8085",
+    "selectedColor": "#e4393c",
+    "backgroundColor": "#ffffff",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "iconPath": "images/home_icon01.png",
+      "selectedIconPath": "images/home_icon02.png",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/shop/shop",
+      "iconPath": "images/shop_icon01.png",
+      "selectedIconPath": "images/shop_icon02.png",
+      "text": "购物车"
+    }, {
+      "pagePath": "pages/user/user",
+      "iconPath": "images/user_icon01.png",
+      "selectedIconPath": "images/user_icon02.png",
+      "text": "我的订单"
+    }]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  }
+}

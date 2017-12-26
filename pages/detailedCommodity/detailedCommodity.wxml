@@ -1,0 +1,186 @@
+<!--pages/detailedCommodity/detailedCommodity.wxml-->
+<import src="../../wxParse/wxParse.wxml"/> 
+
+<view class="fgx"></view>
+<view class="container">
+    <view class="header">
+        <swiper indicator-dots="true" indicator-color="#cccccc" indicator-active-color="#e4393c">
+            <swiper-item wx:for="{{data.imagelist}}">
+                <image mode="aspectFit" src="{{item.image_url}}"></image>
+            </swiper-item>
+        </swiper>
+        
+        <view class="b">
+            <view class="title"><text wx:if="{{data.product_label}}">{{data.product_label}}</text>{{data.product_name}}</view>
+            <view class="price">
+                <view class="l">
+                  <view>
+                    <view class="lPrice">
+                      <view>
+                       <text class="rmb">¥</text>
+                       <text class="money">{{data.product_price}}</text>
+                      </view>
+                      <view wx:if="{{data.product_cost_price}}">
+                        <text class="ORImoney">¥{{data.product_cost_price}}</text>
+                      </view>
+                    </view>
+                    <view class="rPrice" wx:if="{{data.member_price}}">
+                      <text class="HYmoney">会员价: ¥{{data.member_price}}</text>
+                    </view>
+                  </view>
+                </view>
+                <!--<view class="l" style="line-height:70rpx;">
+                  <text class="rmb">¥</text>
+                  <text class="money">{{data.product_price}}</text>
+                </view>-->
+                <view class="r">销量：{{data.product_sale}}件</view>
+            </view>
+        </view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list {{stopDescribe?'speHide':''}}" wx:if="{{data.product_message}}">
+        <view class="box-t" bindtap="bindtapStopDescribe">
+            <view>{{data.product_message_sub}}</view>
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+        <view class="box-b" hidden="{{stopDescribe}}">{{data.product_message}}</view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list {{stopSpe?'speHide':''}}">
+        <view class="box-t" bindtap="bindtapStopSpe">
+            <view>已选  <text wx:if="{{data.defaultInvMap}}">{{data.defaultInvMap.specifica_name}} </text>{{productNum}}个</view>
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+        <view class="box-specifications">
+
+            <view wx:for="{{data.specificaList}}" wx:for-index="idx">
+                <view class="l">{{item.specName}}</view>
+                <view class="r">
+                    <text class="{{specValueId[idx]==item.specValueId?'zindex':''}}" wx:for="{{item.specValues}}" data-parent="{{idx}}" data-spe="{{item.specValueId}}" bindtap="bindtapChangeSpe">{{item.specValue}}</text>
+                </view>
+            </view>
+            
+            <view class="num">
+                <view class="l">数量</view>
+                <view class="r">
+                    <text bindtap="bindtapReduce">-</text>
+                    <text class="m">{{productNum}}</text>
+                    <text bindtap="bindtapAdd">+</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list address">
+        <view class="box-t">
+            <navigator url="../navAddress/navAddress" class="l">
+                <image src="../../images/address_icon03.jpg"></image>
+                <text>送至:{{address}}</text>
+            </navigator>
+            <image class="off" src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+        <view class="box-b">
+            <text wx:if="{{data.freightPrice <= 0}}">免运费</text>
+            <text wx:else>运费：¥ {{data.freightPrice}}</text>
+        </view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list company">
+      <view class="box-t">
+        <navigator url="../index/index" open-type="switchTab" class="l">
+            <image src="{{data.shopImage}}" mode="aspectFit"></image>
+            <text>{{data.shopName}}</text>
+        </navigator>
+        <image class="off" src="../../images/user_icon15.png" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="shop-nav">
+        <view class="{{shopDetailsBool == 0?'z-index':''}}" bindtap="bindtapChangeShopNav" data-page="0">商品详情</view>
+        <view class="{{shopDetailsBool == 1?'z-index':''}}" bindtap="bindtapChangeShopNav" data-page="1">规格参数</view>
+        <view class="{{shopDetailsBool == 2?'z-index':''}}" bindtap="bindtapChangeShopNav" data-page="2">评价</view>
+    </view>
+
+    <view class="shopDetails" wx:if="{{shopDetailsBool == 0}}">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+
+    <view class="specifications" wx:if="{{shopDetailsBool == 1}}">
+        <view wx:for="{{data.paramList}}">
+            <text>{{item.paramsName}}:</text>
+            <text>{{item.paramsValue}}</text>
+        </view>
+    </view>
+
+    <view class="evaluate" wx:if="{{shopDetailsBool == 2}}">
+        <view class="top">
+            <view class="z-index">全部</view>
+            <view>好评({{countMap.hao}})</view>
+            <view>中评({{countMap.zhong}})</view>
+            <view>差评({{countMap.cha}})</view>
+        </view>
+        
+        <view class="list" wx:for="{{commentList}}">
+            <block wx:if="{{evaluate == 0}}">
+                <view class="name">{{item.nickname}}<text>({{item.gradeTypeName}})</text></view>
+                <view class="text">{{item.content}}</view>
+                <view class="pic">
+                    <image wx:for="{{item.imageList}}" mode="aspectFill" src="{{picUrl + item.imageUrl}}"></image>
+                </view>
+                <view class="time">{{item.createtime}} <text wx:if="{{item.spec}}">| {{item.spec}}</text></view>
+            </block>
+            <block wx:if="{{evaluate == 1 && item.feel == 0}}">
+                <view class="name">{{item.nickname}}<text>({{item.gradeTypeName}})</text></view>
+                <view class="text">{{item.content}}</view>
+                <view class="pic">
+                    <image wx:for="{{item.imageList}}" mode="aspectFill" src="{{picUrl + item.imageUrl}}"></image>
+                </view>
+                <view class="time">{{item.createtime}} <text wx:if="{{item.spec}}">| {{item.spec}}</text></view>
+            </block>
+            <block wx:if="{{evaluate == 2 && item.feel == 1}}">
+                <view class="name">{{item.nickname}}<text>({{item.gradeTypeName}})</text></view>
+                <view class="text">{{item.content}}</view>
+                <view class="pic">
+                    <image wx:for="{{item.imageList}}" mode="aspectFill" src="{{picUrl + item.imageUrl}}"></image>
+                </view>
+                <view class="time">{{item.createtime}} <text wx:if="{{item.spec}}">| {{item.spec}}</text></view>
+            </block>
+            <block wx:if="{{evaluate == 3 && item.feel == -1}}">
+                <view class="name">{{item.nickname}}<text>({{item.gradeTypeName}})</text></view>
+                <view class="text">{{item.content}}</view>
+                <view class="pic">
+                    <image wx:for="{{item.imageList}}" mode="aspectFill" src="{{picUrl + item.imageUrl}}"></image>
+                </view>
+                <view class="time">{{item.createtime}} <text wx:if="{{item.spec}}">| {{item.spec}}</text></view>
+            </block>
+        </view>
+
+    </view>
+
+     <view style="height:100rpx;"></view>
+
+    <view class="purchase">
+        <navigator url="../shop/shop" open-type="switchTab">
+            <view class="t"><image src="../../images/shop_icon01.png" mode="aspectFit"></image><text>{{shopCartNum}}</text></view>
+            <view class="b">购物车</view>
+        </navigator>
+        <view class="btn" wx:if="{{memberId}}">
+            <view class="l" bindtap="bindtapAddCart" wx:if="{{product_type_id==0}}">加入购物车</view>
+            <navigator bindtap="bindtapRightOff" data-type="{{product_type_id}}" class="r">立即购买</navigator>
+        </view>
+        <view class="btn" wx:else>
+            <button open-type="getUserInfo" bindgetuserinfo="bindtapAddCart" class="l" wx:if="{{product_type_id==0}}">加入购物车</button>
+            <button open-type="getUserInfo" bindgetuserinfo="bindtapRightOff" data-type="{{product_type_id}}" class="r">立即购买</button>
+        </view>
+    </view>
+</view>

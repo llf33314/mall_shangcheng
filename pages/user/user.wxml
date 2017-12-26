@@ -1,0 +1,111 @@
+<!--pages/user/user.wxml-->
+<view class="container {{isAdvert==1?'isAdvert':''}}">
+    <view class="header">
+      <view>
+        <view>
+            <image wx:if="{{data.head_image}}" src="{{data.head_image}}" mode="aspectFill"></image>
+            <image wx:else src="../../images/user_icon03.jpg" mode="aspectFill"></image>
+            <view class="name">{{data.member_name}}</view>
+            <view class="phone" wx:if="{{data.telephone}}">{{data.telephone}}</view>
+        </view>
+        <view wx:if="{{!memberId}}">
+            <button class='btn-authorization' bindgetuserinfo="userInfoHandler" open-type="getUserInfo">登录/注册</button>
+        </view>
+      </view>
+    </view>
+
+    <navigator url="../myOrder/myOrder?page=0" class="box" wx:if="{{memberId}}">
+        <view class="l">
+            <image src="../../images/user_icon04.jpg" mode="aspectFit"></image>
+            <text>我的订单</text>
+        </view>
+        <view class="r">
+            <text>查看全部订单</text>
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </navigator>
+
+    <view class="nav" wx:if="{{memberId}}">
+        <navigator url="../myOrder/myOrder?page=1" class="list">
+            <image src="../../images/user_icon05.png" mode="aspectFit"></image>
+            <view>待付款</view>
+        </navigator>
+        <navigator url="../myOrder/myOrder?page=2" class="list">
+            <image src="../../images/user_icon06.png" mode="aspectFit"></image>
+            <view>待发货</view>
+        </navigator>
+        <navigator url="../myOrder/myOrder?page=3" class="list">
+            <image src="../../images/user_icon07.png" mode="aspectFit"></image>
+            <view>待收货</view>
+        </navigator>
+        <navigator url="../myOrder/myOrder?page=4" class="list">
+            <image src="../../images/user_icon08.png" mode="aspectFit"></image>
+            <view>已完成</view>
+        </navigator>
+    </view>
+    <view style="height:18rpx;"></view>
+
+    <!--<view class="box">
+        <view class="l">
+            <image src="../../images/user_icon09.jpg" mode="aspectFit"></image>
+            <text>我的竞拍</text>
+        </view>
+        <view class="r">
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <view class="box">
+        <view class="l">
+            <image src="../../images/user_icon10.jpg" mode="aspectFit"></image>
+            <text>我的秒杀</text>
+        </view>
+        <view class="r">
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <view class="box">
+        <view class="l">
+            <image src="../../images/user_icon11.jpg" mode="aspectFit"></image>
+            <text>我的批发</text>
+        </view>
+        <view class="r">
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <view class="box">
+        <view class="l">
+            <image src="../../images/user_icon12.jpg" mode="aspectFit"></image>
+            <text>我的团购</text>
+        </view>
+        <view class="r">
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <view class="box">
+        <view class="l">
+            <image src="../../images/user_icon13.jpg" mode="aspectFit"></image>
+            <text>我的预售</text>
+        </view>
+        <view class="r">
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </view>
+
+    <view style="height:18rpx;"></view>-->
+    
+
+    <navigator url="../myAddress/myAddress" open-type="navigate" class="box"  wx:if="{{memberId}}">
+        <view class="l">
+            <image src="../../images/user_icon14.jpg" mode="aspectFit"></image>
+            <text>我的地址</text>
+        </view>
+        <view class="r">
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </view>
+    </navigator>
+    
+</view>

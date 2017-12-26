@@ -1,0 +1,118 @@
+<!--index.wxml-->
+<view class="container">
+  <scroll-view  scroll-y="true" enable-back-to-top="true" scroll-top="{{scrollTop}}" bindscrolltolower="bindscrolltolowerAddData">
+    <view class="head">
+      <view class="box1" bindtap="bindtapClassification">
+        <image src="../../images/index_icon01.png"></image>
+        <view>分类</view>
+      </view>
+      <view class="box2">
+        <image bindtap="findShop" src="../../images/index_icon04.png"></image>
+        <input type="text" placeholder="搜索商品" placeholder-class="white" value="{{findName}}" bindinput="bindinputFind" bindconfirm="findShop" />
+      </view>
+      <!--<view class="box3">
+        <image src="../../images/index_icon02.png"></image>
+        <image src="../../images/index_icon03.png" bindtap="bindtapActivity"></image>
+        <view>活动</view>
+      </view>-->
+    </view>
+
+    <view class="swiper">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" indicator-color="#fff" indicator-active-color="#e4393c">
+        <block wx:for="{{imageList}}">
+          <swiper-item bindtap="bindtapHrefDetail01" data-type="{{item.type}}" data-proId="{{item.proId}}">
+            <image src="{{picUrl + item.imageUrl}}" class="slide-image" mode="aspectFill"/>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+    <view class="main">
+
+      <view class="list" wx:for="{{productPage.subList}}" bindtap="bindtapHrefDetail02" data-type="{{item.pro_type_id}}" data-proid="{{item.id}}">
+        <image src="{{item.image_url}}" mode="aspectFill"></image>
+        <view class="title"><text wx:if="{{item.pro_label}}">{{item.pro_label}}</text>{{item.pro_name}}</view>
+        <view class="state">
+          <view class="l">
+            <text class="rmb">¥ </text>
+            <text class="money">{{item.price_first}}</text>
+            <text class="moneySmall">.{{item.price_next}}</text>
+          </view>
+          <view class="r">销量:<text>{{item.sale_total}}</text></view>
+        </view>
+      </view>
+
+      <view wx:if="{{productPage.subList.length>0}}">
+        <view class="loading" wx:if="{{is_lower}}">到底啦!</view>
+        <view class="loading" wx:else>加载中...</view>
+      </view>
+
+    </view>
+
+  </scroll-view>
+
+  <view class="head" hidden="{{classification}}">
+    <view class="box1" bindtap="bindtapClassification">
+      <image src="../../images/index_icon01.png"></image>
+      <view>分类</view>
+    </view>
+    <view class="box2">
+      <image bindtap="findShop" src="../../images/index_icon04.png"></image>
+      <input type="text" placeholder="搜索商品" disabled="true" placeholder-class="white" value="{{findName}}" bindtap="bindtapHideClassification" />
+    </view>
+    <!--<view class="box3">
+      <image src="../../images/index_icon02.png"></image>
+      <image src="../../images/index_icon03.png" bindtap="bindtapActivity"></image>
+      <view>活动</view>
+    </view>-->
+  </view>
+
+  <view class="layer" hidden="{{classification}}">
+      <view class="bg" bindtap="bindtapHideClassification"></view>
+      <view class="triangle"></view>
+      <scroll-view class="layer-main" scroll-y="true">
+
+        <navigator class="list" url="../classification/classification">
+          <image src="http://maint.duofriend.com/upload//image/3/gt123/3/20170606/F9056CDD3CA0F89605BABABE8173AC84.png" mode="aspectFit"></image>
+          <text>全部</text>
+        </navigator>
+
+        <navigator class="list" bindtap="bindtapHrefClassification" wx:for="{{firstList}}" data-group="{{item.group_id}}" data-child="{{item.is_child}}">
+          <image src="{{picUrl + item.image_url}}" mode="aspectFit"></image>
+          <text>{{item.group_name}}</text>
+        </navigator>
+
+        <view style="height:100rpx;"></view>
+
+      </scroll-view>
+    </view>
+
+    <view class="layer activity" hidden="{{activity}}">
+      <view class="bg" bindtap="bindtapHideActivity"></view>
+      <view class="triangle"></view>
+      <view class="layer-main">
+
+        <view class="list" wx:if="{{is_auction == 1}}">
+          <image src="../../images/activity_icon01.jpg" mode="aspectFit"></image>
+          <text>竞拍</text>
+        </view>
+
+        <view class="list" wx:if="{{is_seckill == 1}}">
+          <image src="../../images/activity_icon02.jpg" mode="aspectFit"></image>
+          <text>秒杀</text> 
+        </view>
+
+        <view class="list" wx:if="{{is_group == 1}}">
+          <image src="../../images/activity_icon03.jpg" mode="aspectFit"></image>
+          <text>团购</text>
+        </view>
+
+        <view class="list" wx:if="{{is_presale == 1}}">
+          <image src="../../images/activity_icon04.jpg" mode="aspectFit"></image>
+          <text>预售</text>
+        </view>
+
+      </view>
+    </view>
+
+</view>

@@ -1,0 +1,106 @@
+/* pages/refund/refund.wxss */
+
+page,.container{
+  min-height: 100%;
+  background-color: #f5f5f9;
+  color: #333;
+}
+
+navigator {
+  overflow: hidden;
+}
+.container {
+  width: 100%;
+  display: block;
+  position: absolute;
+}
+.container.isAdvert{
+  background-image: url(http://maint.duofriend.com/upload/logo_icon.png);
+  background-size: 262rpx 39rpx;
+  background-position: center 98%;
+  background-repeat: no-repeat;
+}
+
+.main-t {
+  width: 100%;
+  background-color: #fff;
+  font-size: 26rpx;
+  line-height: 45rpx;
+  padding: 18rpx 0;
+}
+
+.main-t>view .l, .main-t>view .r {
+  display: inline-block;
+}
+
+.main-t>view .l {
+  color: #666;
+  padding-left: 26rpx;
+}
+
+.main-b {
+  width: 100%;
+  background-color: #fff;
+  font-size: 26rpx;
+  padding-left: 18rpx;
+  box-sizing: border-box;
+  padding-bottom: 70rpx;
+}
+
+.main-b>view {
+  height: 73rpx;
+  line-height: 73rpx;
+  border-bottom: 1rpx solid #e8e8ed;
+  box-sizing: border-box;
+}
+
+.main-b>view.noBor {
+  border: 0rpx;
+}
+
+.main-b>view .l, .main-b>view .r {
+  display: inline-block;
+}
+
+.main-b>view .l {
+  width: 148rpx;
+  vertical-align: top;
+}
+
+.main-b>view .r {
+  width: 538rpx;
+  color: #666;
+  vertical-align: top;
+}
+.main-b>view .r input{
+  height: 73rpx;
+  line-height: 73rpx;
+  color: #333;
+}
+
+.main-b>view image {
+  width: 14rpx;
+  height: 21rpx;
+}
+
+.main-btn {
+  width: 690rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #e4393c;
+  border-radius: 5rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 31rpx;
+}
+
+
+/*****************************************************/
+.logo{
+    width: 100%;
+    text-align: center;
+}
+.logo image{
+    width: 262rpx;
+    height: 39rpx;
+}

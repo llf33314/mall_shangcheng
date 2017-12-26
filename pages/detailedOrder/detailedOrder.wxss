@@ -1,0 +1,211 @@
+/* pages/detailedOrder/detailedOrder.wxss */
+
+page,.container{
+  min-height: 100%;
+  background-color: #f5f5f9;
+  color: #333;
+  font-size: 26rpx;
+}
+
+navigator {
+  overflow: hidden;
+}
+.container {
+  width: 100%;
+  display: block;
+  position: absolute;
+}
+.container.isAdvert{
+  background-image: url(http://maint.duofriend.com/upload/logo_icon.png);
+  background-size: 262rpx 39rpx;
+  background-position: center 98%;
+  background-repeat: no-repeat;
+}
+
+.color01 {
+  color: #e4393c;
+}
+
+.main-list {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  line-height: 47rpx;
+}
+
+.main-list01, .main-list02 {
+  padding: 20rpx 29rpx;
+}
+
+.main-list02 .l, .main-list02 .r {
+  width: 130rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.main-list02 .r {
+  width: 565rpx;
+}
+
+.main-list03 {
+  padding: 20rpx 17rpx 20rpx 21rpx;
+}
+
+.main-list03 .l, .main-list03 .r {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.main-list03 .r {
+  color: #e4393c;
+  text-align: right;
+}
+
+.main-list03 .tr {
+  text-align: right;
+  border-top: 1rpx solid #e8e8ed;
+  line-height: 76rpx;
+  margin-top: 10rpx;
+}
+
+.main-list03 .btn>view {
+  width: 693rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 31rpx;
+  border-radius: 5rpx;
+  margin-bottom: 17rpx;
+}
+
+.main-list03 .btn>view:nth-child(1) {
+  color: #fff;
+  background-color: #e4393c;
+  border: 1rpx solid rgba(0,0,0,.2);
+}
+.main-list03 .btn>view:nth-child(2) {
+  color: #0f8783;
+  background-color: #bbebe9;
+  border: 1rpx solid #7bd9d6;
+}
+.main-list03 .btn>view:nth-child(3) {
+  color: #e4393c;
+  background-color: #fff;
+  border: 1rpx solid #e4393c;
+}
+
+/**********************/
+
+.main-list .shopName {
+  padding: 16rpx 29rpx;
+  line-height: 40rpx;
+  font-size: 24rpx;
+  border-bottom: 1rpx solid #f5f5f9;
+}
+
+.main-list .shopName image {
+  width: 47rpx;
+  height: 40rpx;
+  vertical-align: top;
+  margin-right: 15rpx;
+}
+
+.main-list .shopName .l {
+  width: 540rpx;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.main-list .shopName .r {
+  display: inline-block;
+  color: #87858f;
+  margin-left: 10rpx;
+  vertical-align: middle;
+}
+
+.main-list .shop-list {
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f5f5f9;
+}
+
+.main-list .shop-list .l {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 0;
+}
+
+.main-list .shop-list .r {
+  width: 530rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.main-list .shop-list .l image {
+  width: 161rpx;
+  height: 161rpx;
+  margin-left: 28rpx;
+  margin-right: 15rpx;
+}
+
+.main-list .shop-list .r .title {
+  height: 68rpx;
+  font-size: 26rpx;
+  line-height: 34rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.main-list .shop-list .r .price {
+  color: #e4393c;
+  line-height: 50rpx;
+}
+
+.main-list .shop-list .r .rmb {
+  font-size: 20rpx;
+}
+
+.main-list .shop-list .r .money {
+  font-size: 26rpx;
+}
+
+.main-list .shop-list .r .moneySmall {
+  font-size: 20rpx;
+}
+
+.main-list .shop-list .specifications {
+  font-size: 22rpx;
+  color: #87858f;
+}
+.main-list .shop-list .btn{
+  width: 100%;
+  text-align: right;
+  padding-right: 20rpx;
+  box-sizing: border-box;
+}
+.main-list .shop-list .btn>view,.main-list .shop-list .btn>navigator{
+  height: 60rpx;
+  line-height: 60rpx;
+  display: inline-block;
+  padding: 0 36rpx;
+  border: 1rpx solid #bebebe;
+  text-align: center;
+  border-radius: 60rpx;
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+
+/*****************************************************/
+.logo{
+    width: 100%;
+    text-align: center;
+}
+.logo image{
+    width: 262rpx;
+    height: 39rpx;
+}

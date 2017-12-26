@@ -1,0 +1,125 @@
+<!--pages/shop/shop.wxml-->
+<view class="container">
+  <!--<view class="nav">
+        <view class="nav-list z-index">购物车</view>
+        <view class="nav-list">批发商购物车</view>
+    </view>-->
+  <view wx:if="{{memberId}}">
+
+  <view class="main">
+    <view wx:for="{{productList}}" wx:for-index="idx" style="margin-bottom:10rpx;">
+      <view class="shopName">
+        <image src="{{item.sto_image}}"></image>
+        <text>{{item.sto_name}}</text>
+
+        <view bindtap="bindtapAddClassEdit" data-index="{{idx}}">{{boolEdit[idx]?'完成':'编辑'}}</view>
+      </view>
+      <view class="main-list {{boolEdit[idx]?'edit':''}}" wx:for="{{item.proList}}">
+        <view class="l {{commodityBool[idx][index]?'z-index':''}}">
+          <view class="select" bindtap="bindtapChangeShop" data-parent="{{idx}}" data-index="{{index}}">
+            <image src="../../images/icon_gou_01.png"></image>
+          </view>
+          <view class="photo" style="background-image:url({{item.image_url}})"></view>
+        </view>
+
+        <view class="r">
+          <!--<view class="r" bindtap="bindtapHrefDetail02" data-type="{{item.pro_type_id}}" data-proid="{{item.id}}">-->
+          <view class="title">
+            {{item.product_name}}
+            <!--<image src="../../images/icon_close.jpg" bindtap="bindtapRemoveShop" data-index="{{index}}" data-parent="{{idx}}" data-id="{{item.id}}"></image>-->
+          </view>
+          <view class="specifications {{item.product_speciname?'':'vib'}}">{{item.product_speciname}}</view>
+          <view class="price">
+            <view class="l">
+              <text class="rmb">¥ </text>
+              <text class="money">{{item.price}}</text>
+            </view>
+            <view class="r">
+              <view class="reduce" bindtap="bindtapReduce" data-parent="{{idx}}" data-index="{{index}}">
+                <image src="../../images/reduce_icon_01.jpg" mode="aspectFit"></image>
+              </view>
+              <view class="num">{{item.product_num}}</view>
+              <view class="add" bindtap="bindtapAdd" data-parent="{{idx}}" data-index="{{index}}">
+                <image src="../../images/add_icon_01.jpg" mode="aspectFit"></image>
+              </view>
+            </view>
+            <view class="num02">
+              <text style="font-size:17rpx;">×</text>{{item.product_num}}</view>
+          </view>
+        </view>
+
+        <view class="remove" bindtap="bindtapRemoveShop" data-index="{{index}}" data-parent="{{idx}}" data-id="{{item.id}}">删除</view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="tip" wx:if="{{sxProductList.length>0}}">以下商品无法一起购买</view>
+
+  <view style="width:100%" wx:for="{{sxProductList}}">
+    <view class="shopName">
+      <image src="{{item.sto_image}}"></image>
+      <text>{{item.sto_name}}</text>
+    </view>
+    <view class="main-list" wx:for="{{item.proList}}">
+      <view class="l">
+        <view class="photo" style="background-image:url({{item.image_url}})"></view>
+      </view>
+
+      <view class="r">
+        <view class="title">
+          <text>{{item.product_name}}</text>
+        </view>
+        <view class="specifications {{item.product_speciname?'':'vib'}}">{{item.product_speciname}}</view>
+        <view class="specifications" style="color:red;">{{item.msg}}</view>
+        <view class="price">
+          <view class="l">
+            <text class="rmb">¥ </text>
+            <text class="money">{{item.price}}</text>
+          </view>
+          <view class="r">
+            <view class="reduce" bindtap="bindtapReduce" data-parent="{{idx}}" data-index="{{index}}">
+              <image src="../../images/reduce_icon_01.jpg" mode="aspectFit"></image>
+            </view>
+            <view class="num">{{item.product_num}}</view>
+            <view class="add" bindtap="bindtapAdd" data-parent="{{idx}}" data-index="{{index}}">
+              <image src="../../images/add_icon_01.jpg" mode="aspectFit"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="clean" wx:if="{{sxProductList.length>0}}" bindtap="bindtapClean">清空失效商品</view>
+
+
+  <view style="height:150rpx;"></view>
+
+  <view class="settlement">
+    <view class="box1">
+      <view class="select {{allChangeBool?'z-index':''}}" bindtap="bindtapAllChange">
+        <image src="../../images/icon_gou_01.png"></image>
+      </view>
+    </view>
+    <view class="box2" bindtap="bindtapAllChange">全选</view>
+    <view class="box3">
+      <text>合计:</text>
+      <text class="p"> ¥ {{price}}</text>
+    </view>
+
+    <view class="box4">
+      <navigator bindtap="bindtapGoPay" class="btn">去结算({{commoditySelectLength}})</navigator>
+    </view>
+
+
+  </view>
+
+  </view>
+  <view class='authorization' wx:else>
+    <view>
+      <button class='btn-authorization' bindgetuserinfo="userInfoHandler" open-type="getUserInfo">登录/注册</button>
+      <view class="text">您还没有登录哦</view>
+    </view>
+  </view>
+</view>

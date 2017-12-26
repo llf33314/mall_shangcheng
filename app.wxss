@@ -1,0 +1,17 @@
+/**app.wxss**/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 
+.vam{
+  vertical-align: middle
+}
+.fgx{
+  width: 100%;
+  height: 1rpx;
+  position: fixed;
+  background-color: #f6f6f9;
+}

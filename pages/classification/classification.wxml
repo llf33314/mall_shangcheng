@@ -1,0 +1,95 @@
+<!--pages/classification/classification.wxml-->
+<view class="container">
+
+  <scroll-view  scroll-y="true" enable-back-to-top="true" bindscrolltolower="bindscrolltolowerAddData">
+    <view class="head">
+      <view class="box1" bindtap="bindtapClassification">
+        <image src="../../images/classification_icon04.jpg"></image>
+        <view>分类</view>
+      </view>
+      <view class="box2">
+        <image bindtap="findShop" src="../../images/classification_icon01.jpg"></image>
+        <input type="text" placeholder="搜索商品" value="{{searchName}}" placeholder-class="87858f" bindinput="bindinputFind" bindconfirm="findShop"/>
+      </view>
+    </view>
+
+    <view class="nav">
+      <view class="nav-list {{arrayIndex==0?'z-index':''}}" bindtap="bindtapNav" data-page="0">最新</view>
+      <view class="nav-list {{arrayIndex==1?'z-index':''}}" bindtap="bindtapNav" data-page="1">销量</view>
+      <view class="nav-list {{arrayIndex==2?'z-index':''}}" bindtap="bindtapNav" data-page="2">
+        <text>价格</text>
+        <image src="../../images/classification_icon02.jpg" mode="aspectFit" hidden="{{arrayMoney != 0}}"></image>
+        <image src="../../images/classification_icon02-t.jpg" mode="aspectFit" hidden="{{arrayMoney != 1}}"></image>
+        <image src="../../images/classification_icon02-b.jpg" mode="aspectFit" hidden="{{arrayMoney != 2}}"></image>
+      </view>
+      <view class="nav-list" bindtap="bindtapNav" data-page="3">
+        <image src="../../images/classification_icon03.jpg" mode="aspectFit" hidden="{{arrayModel != 0}}"></image>
+        <image src="../../images/classification_icon05.jpg" mode="aspectFit" hidden="{{arrayModel != 1}}"></image>
+      </view>
+    </view>
+
+    <view class="main">
+
+      <navigator url="../detailedCommodity/detailedCommodity?proid={{item.id}}" class="list01" wx:if="{{arrayModel == 0}}" wx:for="{{productPage.subList}}">
+        <image src="{{item.image_url}}" mode="aspectFill"></image>
+        <view class="title"><text wx:if="{{item.pro_label}}">{{item.pro_label}}</text>{{item.pro_name}}</view>
+        <view class="state">
+          <view class="l">
+            <text class="rmb">¥ </text>
+            <text class="money">{{item.price_first}}</text>
+            <text class="moneySmall">.{{item.price_next}}</text>
+          </view>
+          <view class="r">销量:<text>{{item.sale_total}}</text></view>
+        </view>
+      </navigator>
+
+      <view bindtap="bindtapGoDetail" data-proid="{{item.id}}" class="list02"  wx:if="{{arrayModel == 1}}" wx:for="{{productPage.subList}}">
+        <view class="l">
+          <image src="{{item.image_url}}" mode="aspectFill"></image>
+        </view>
+        <view class="r">
+          <view class="title"><text wx:if="{{item.pro_label}}">{{item.pro_label}}</text>{{item.pro_name}}</view>
+          <view class="state">
+            <view>
+              <text class="rmb">¥</text>
+              <text class="money">{{item.price_first}}</text>
+              <text class="moneySmall">.{{item.price_next}}</text>
+            </view>
+            <!--<view class="xl">销量:<text>{{item.sale_total}}</text><view catchtap="catchtapAddShopCart"><image src="../../images/add_shop_icon01.png"></image></view></view>-->
+            <view class="xl">销量:<text>{{item.sale_total}}</text>
+              <!--<view ><image src="../../images/add_shop_icon01.png"></image></view>-->
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+
+    <block wx:if="{{is_page}}">
+      <view class="loading" wx:if="{{is_lower}}">到底啦!</view>
+      <view class="loading" wx:else>加载中...</view>
+    </block>
+  </scroll-view>
+
+  <view class="layer" hidden="{{classification}}">
+      <view class="bg" bindtap="bindtapHideClassification"></view>
+      <view class="triangle"></view>
+      <scroll-view class="layer-main" scroll-y="true">
+        <navigator class="list" url="../classification/classification" open-type="redirect">
+          <image src="http://maint.duofriend.com/upload//image/3/gt123/3/20170606/F9056CDD3CA0F89605BABABE8173AC84.png" mode="aspectFit"></image>
+          <text>全部</text>
+        </navigator>
+
+        <navigator class="list" bindtap="bindtapHrefClassification" open-type="redirect" wx:for="{{firstList}}" data-group="{{item.group_id}}" data-child="{{item.is_child}}">
+          <image src="{{picUrl + item.image_url}}" mode="aspectFit"></image>
+          <text>{{item.group_name}}</text>
+        </navigator>
+
+        <view style="height:100rpx;"></view>
+      </scroll-view>
+
+   </view>
+
+  
+</view>
+
