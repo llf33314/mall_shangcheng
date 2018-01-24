@@ -1,0 +1,16 @@
+{
+  "extEnable": true,
+  "extAppid": "wx8b43ff3bf42b4988",
+  "ext": {
+    "busId": 42,
+    "domain": "http://yifriend.net",
+    "socketdomain": "wss:socket.duofriend.com",
+    "upload": "http://maint.yifriend.net/upload/",
+    "appid": "wx8b43ff3bf42b4988",
+    "style": "3"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

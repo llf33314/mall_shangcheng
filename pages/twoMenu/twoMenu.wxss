@@ -1,0 +1,150 @@
+/* pages/twoMenu/twoMenu.wxss */
+
+.white {
+  color: white;
+}
+
+.head {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f5f5f9;
+}
+
+.head>view {
+  font-size: 15rpx;
+  display: inline-block;
+  vertical-align: top;
+  color: #87858f;
+}
+
+.head .box1 {
+  width: 63rpx;
+  text-align: center;
+  line-height: 25rpx;
+  padding-top: 13rpx;
+  box-sizing: border-box;
+}
+
+.head .box1 image {
+  width: 34rpx;
+  height: 34rpx;
+}
+
+.head .box2 {
+  width: 665rpx;
+  height: 60rpx;
+  background-color: #f1f1f4;
+  border-radius: 60rpx;
+  margin: 13rpx 0;
+}
+
+.head .box2 image {
+  width: 28rpx;
+  height: 28rpx;
+  vertical-align: middle;
+  padding: 0 15rpx;
+}
+
+.head .box2 input {
+  width: 540rpx;
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 23rpx;
+  color: #87858f;
+}
+
+.head .box3 {
+  width: 63rpx;
+  text-align: center;
+  line-height: 18rpx;
+  padding-top: 13rpx;
+  box-sizing: border-box;
+}
+
+.head .box3 image {
+  width: 45rpx;
+  height: 40rpx;
+}
+
+/***********************************/
+.main {
+  width: 100%;
+}
+.main .box{
+  padding: 15rpx 20rpx; 
+}
+.main .list{
+  width: 25%;
+  font-size: 17rpx;
+  text-align: center;
+  display: inline-block;
+}
+.main .list image{
+  width: 157rpx;
+  height: 182rpx;
+}
+.main .list .name{
+  height: 55rpx;
+  line-height: 55rpx;
+  color: #333;
+}
+
+/**************************/
+.layer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.layer .bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+}
+
+.layer .layer-main {
+  width: 217rpx;
+  height: 100%;
+  border-right: 1rpx solid rgba(0, 0, 0, 0.5);
+  position: relative;
+  top: 87rpx;
+  z-index: 9;
+  background-color: #fff;
+}
+
+.layer .layer-main .list {
+  padding: 6rpx 20rpx;
+  border-bottom: 2rpx solid #dfdfdf;
+  font-size: 0;
+}
+
+.layer .layer-main .list image {
+  width: 29rpx;
+  height: 60rpx;
+  vertical-align: top;
+  margin-right: 16rpx;
+}
+
+.layer .layer-main .list text {
+  font-size: 21rpx;
+  line-height: 60rpx;
+  color: #666;
+}
+
+.layer .triangle {
+  width: 0;
+  height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+  border-bottom: 20rpx solid #fff;
+  position: absolute;
+  top: 75rpx;
+  left: 22rpx;
+}

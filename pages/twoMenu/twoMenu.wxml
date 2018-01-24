@@ -1,0 +1,46 @@
+<!--pages/twoMenu/twoMenu.wxml-->
+<view class="container">
+
+  <view class="head">
+    <view class="box1" bindtap="bindtapClassification">
+      <image src="../../images/classification_icon04.jpg"></image>
+      <view>分类</view>
+    </view>
+    <view class="box2">
+      <image bindtap="findShop" src="../../images/classification_icon01.jpg"></image>
+      <input type="text" placeholder="搜索商品" placeholder-class="87858f" bindinput="bindinputFind" bindconfirm="findShop"/>
+    </view>
+  </view>
+
+  <view class="main">
+    <view class="box">
+      <view class="list" wx:for="{{classList}}" bindtap="bindtapList" data-group="{{item.group_id}}">
+          <image src="{{picUrl + item.image_url}}" mode="aspectFill"></image>
+          <view class="name">{{item.group_name}}</view>
+      </view>
+    </view>
+
+  </view>
+
+
+  <view class="layer" hidden="{{classification}}">
+      <view class="bg" bindtap="bindtapHideClassification"></view>
+      <view class="triangle"></view>
+      <scroll-view class="layer-main" scroll-y="true">
+
+        <navigator class="list" url="../classification/classification" open-type="redirect">
+          <image src="http://maint.duofriend.com/upload//image/3/gt123/3/20170606/F9056CDD3CA0F89605BABABE8173AC84.png" mode="aspectFit"></image>
+          <text>全部</text>
+        </navigator>
+
+        <navigator class="list" bindtap="bindtapHrefClassification" open-type="redirect" wx:for="{{firstList}}" data-group="{{item.group_id}}" data-child="{{item.is_child}}">
+          <image src="{{picUrl + item.image_url}}" mode="aspectFit"></image>
+          <text>{{item.group_name}}</text>
+        </navigator>
+
+        <view style="height:100rpx;"></view>
+
+      </scroll-view>
+    </view>
+    
+</view>

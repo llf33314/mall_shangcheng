@@ -1,0 +1,65 @@
+<!--pages/refund/refund.wxml-->
+<view class="fgx"></view>
+<view class="container {{isAdvert==1?'isAdvert':''}}">
+    <view class="main-t">
+        <view>
+            <view class="l">商品名称：</view>
+            <view class="r">{{data.product_name}}</view>
+        </view>
+        <view>
+            <view class="l">订单金额：</view>
+            <view class="r">¥ {{data.order_money}}</view>
+        </view>
+        <view>
+            <view class="l">订单编号：</view>
+            <view class="r">{{data.order_no}}</view>
+        </view>
+        <view>
+            <view class="l">交易时间：</view>
+            <view class="r">{{data.pay_time}}</view>
+        </view>
+        <!--<view>
+            <view class="l">退货时间：</view>
+            <view class="r">{{data.return_time}}</view>
+        </view>
+        <view>
+            <view class="l">退货地址：</view>
+            <view class="r">{{data.return_address}}</view>
+        </view>-->
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-b">
+        <view>
+            <picker value="{{index}}" range="{{data.comList}}" range-key="item_value" bindchange="bindchangeCom">
+                <view class="l">物流方式</view>
+                <view class="r" wx:if="{{!comIndex}}">请选择物流公司</view>
+                <view class="r" wx:else>{{data.comList[comIndex].item_value}}</view>
+                <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+            </picker>
+        </view>
+        <view>
+            <view class="l">物流单号</view>
+            <view class="r"><input type="text" value="{{wlNo}}" placeholder="请填写物流单号" bindinput="bindchangeWlNo" /></view>
+        </view>
+        <view>
+            <view class="l">退款金额</view>
+            <view class="r">¥ {{data.return_money}}</view>
+        </view>
+        <view>
+            <view class="l">手机号码</view>
+            <view class="r"><input type="text" value="{{retTelephone}}" placeholder="请填写手机号码" bindinput="bindtapChangePhone" /></view>
+        </view>
+        <view class="noBor">
+            <view class="l">备注信息</view>
+            <view class="r"><input type="text" value="{{retRemark}}" maxlength="200" placeholder="请填写备注信息" bindinput="bindtapChangeRemark" /></view>
+        </view>
+    </view>
+
+    <view style="height:140rpx;"></view>
+
+    <view class="main-btn" bindtap="bindtapSubmit">提交</view>
+    
+</view>
+

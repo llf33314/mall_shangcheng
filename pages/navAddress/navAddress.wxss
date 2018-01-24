@@ -1,0 +1,111 @@
+/* pages/navAddress/navAddress.wxss */
+page,.container{
+  min-height: 100%;
+  background-color: #f5f5f9;
+  color: #333;
+}
+
+navigator {
+  overflow: hidden;
+}
+.container {
+  width: 100%;
+  display: block;
+  position: absolute;
+}
+.container.isAdvert{
+  background-image: url(http://maint.duofriend.com/upload/logo_icon.png);
+  background-size: 262rpx 39rpx;
+  background-position: center 98%;
+  background-repeat: no-repeat;
+}
+
+.ml-20{
+  margin-left: 20rpx;
+}
+.inb{
+  display: inline-block;
+}
+/*******************************/
+.main-list {
+  width: 100%;
+  font-size: 21rpx;
+  padding-left: 42rpx;
+  border-bottom: 1rpx solid #f9f9fc;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.main-list .t{
+  line-height: 35rpx;
+  padding: 32rpx 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.main-list .t image {
+  width: 38rpx;
+  height: 35rpx;
+  margin-left: 23rpx;
+}
+
+.main-list .t>view {
+  width: 550rpx;
+  display: inline-block;
+}
+/**********************************/
+.main-list .b{
+  font-size: 21rpx;
+  padding: 19rpx 0;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right:20rpx;
+}
+.main-list .b>label{
+  width: 50%;
+  display: inline-block;
+}
+.main-list .b .checkbox .inb>view{
+  width: 33rpx;
+  height: 33rpx;
+  display: inline-block;
+  background-color: #bfbfbf;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 11rpx;
+}
+.main-list .b .checkbox .inb>view.z-index{
+  background-color: #e4393c;
+}
+.main-list .b .checkbox .inb>view image{
+  width: 22rpx;
+  height: 14rpx;
+  vertical-align: top;
+  margin-top: 9rpx;
+}
+
+.main-list .b .remove{
+  text-align: right;
+  padding-right: 33rpx;
+  box-sizing: border-box;
+}
+.main-list .b .remove image{
+  width: 26rpx;
+  height: 26rpx;
+  vertical-align: middle;
+  margin-right: 12rpx;
+}
+
+/**********************************/
+.addBtn{
+  width: 100%;
+  font-size: 22rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 23rpx 0 23rpx 45rpx;
+}
+.addBtn image{
+  width: 37rpx;
+  height: 37rpx;
+  vertical-align: middle;
+  margin-right: 16rpx;
+}

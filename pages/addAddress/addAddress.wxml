@@ -1,0 +1,56 @@
+<!--pages/addAddress/addAddress.wxml-->
+<view class="container {{isAdvert==1?'isAdvert':''}}">
+    <view class="main-list">
+        <view class="list-l">收货人</view>
+        <view class="list-r"><input type="text" placeholder="姓名" value="{{address.memName}}" bindinput="bindinputName" /></view>
+    </view>
+    <view class="main-list">
+        <view class="list-l">联系电话</view>
+        <view class="list-r"><input type="number" placeholder="手机号码" value="{{address.memPhone}}" bindinput="bindinputPhone" /></view>
+    </view>
+    <view class="main-list">
+        <picker value="{{index}}" range="{{provinces}}" bindchange="bindchangeProvince">
+            <view class="list-l">选择省</view>
+            <view class="list-r">
+                <!--<input wx:if="{{provinceNum < 0}}" type="text" placeholder="请选择" disabled />
+                <input wx:else type="text" value="{{provinces[provinceNum]}}" disabled />-->
+                <view wx:if="{{provinceNum < 0}}">请选择</view>
+                <view wx:else>{{provinces[provinceNum]}}</view>
+            </view>
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </picker>
+    </view>
+    <view class="main-list">
+        <picker value="{{index}}" range="{{citys}}" bindchange="bindchangeCity">
+            <view class="list-l">选择市</view>
+            <view class="list-r">
+                <!--<input wx:if="{{cityNum < 0}}" type="text" placeholder="请选择" disabled />
+                <input wx:else type="text" value="{{citys[cityNum]}}" disabled />-->
+                <view wx:if="{{cityNum < 0}}">请选择</view>
+                <view wx:else>{{citys[cityNum]}}</view>
+            </view>
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </picker>
+    </view>
+    <view class="main-list">
+        <picker value="{{index}}" range="{{areas}}" bindchange="bindchangeArea">
+            <view class="list-l">选择区</view>
+            <view class="list-r">
+                <view wx:if="{{areaNum < 0}}">请选择</view>
+                <view wx:else>{{areas[areaNum]}}</view>
+            </view>
+            <image src="../../images/user_icon15.png" mode="aspectFit"></image>
+        </picker>
+    </view>
+    <view class="main-list notBor">
+        <view class="list-l">详细地址</view>
+        <view class="list-r">
+            <input placeholder="街道门牌信息" value="{{address.memAddress}}" bindinput="bindinputAddress" wx:if="{{!isJuliFreight}}"/>
+            <input placeholder="街道门牌信息" value="{{address.memAddress}}" bindtap="bindLocation" wx:else disabled="true"/>
+        </view>
+    </view>
+
+    <view style="height:365rpx"></view>
+
+    <view class="saveBtn" bindtap="bindtapSubmit">保存</view>
+</view>

@@ -1,0 +1,21 @@
+<!--pages/listShop/listShop.wxml-->
+<view class="fgx"></view>
+<view class="container {{isAdvert==1?'isAdvert':''}}">
+    <view class="main-list" wx:for="{{shopList}}" bindtap="bindtapHrefHome" data-id="{{item.id}}">
+        <view class="l">
+            <view class="name">{{item.shopName}}<text wx:if="{{item.raill != -1}}">{{item.raill}}KM</text></view>
+            <view class="phone">
+                <image src="../../images/list_iphone_01.jpg"></image>
+                <text>{{item.telephone}}</text>
+            </view>
+            <view class="address">
+                <image src="../../images/list_map_01.jpg"></image>
+                <text>{{item.shopAddress}}</text>
+            </view>
+        </view>
+        <view class="m"></view>
+        <view class="r">
+            <image src="{{item.shopImage}}" mode="aspectFit"></image>
+        </view>
+    </view>
+</view>

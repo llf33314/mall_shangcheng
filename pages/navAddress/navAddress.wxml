@@ -1,0 +1,28 @@
+<!--pages/navAddress/navAddress.wxml-->
+<view class="container {{isAdvert==1?'isAdvert':''}}">
+    <view class="main-list" wx:for="{{addressList}}">
+        <view class="b">
+            <label class="checkbox">
+                <view class="inb" bindtap="bindtapDefault" data-index="{{index}}" data-id="{{item.id}}" data-defaule="{{item.is_default}}">
+                    <view class="{{item.is_default==1?'z-index':''}}"><image src="../../images/icon_gou_01.png"></image></view>
+                </view>
+            </label>
+        </view>
+
+        <view class="t">
+            <view class="vam" bindtap="bindtapDefault" data-index="{{index}}" data-id="{{item.id}}" data-defaule="{{item.is_default}}">
+                <text>{{item.address_detail}}</text>
+                <view>{{item.member_name}}<text class="ml-20">{{item.member_phone}}</text></view>
+            </view>
+            <image bindtap="bindtapGoAdd" data-id="{{item.id}}" class="vam" src="../../images/nav_change_address_icon01.png" mode="aspectFit"></image>
+        </view>
+        
+    </view>
+
+    <navigator url="../addAddress/addAddress" open-type="navigate" class="addBtn">
+        <image src="../../images/addres_icon01.jpg"></image>
+        <text class="vam">新增收货地址</text>
+    </navigator>
+
+</view>
+

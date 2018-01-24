@@ -1,0 +1,200 @@
+/* pages/areaCode/areaCode.wxss */
+.header{
+  width: 100%;
+  height: 121rpx;
+  border-bottom: 2rpx solid #ececec;
+  font-size: 0rpx;
+}
+.header:after{
+  width: 0rpx;
+  height: 100%;
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+}
+.header input{
+  width: 599rpx;
+  height: 121rpx;
+  line-height: 121rpx;
+  margin-left: 37rpx;
+  font-size: 32rpx;
+  display: inline-block;
+  vertical-align: middle
+}
+.header label{
+  width: 1rpx;
+  height: 62rpx;
+  background-color: #f6f6f6;
+  display: inline-block;
+  vertical-align: middle
+}
+.header image{
+  width: 33rpx;
+  height: 33rpx;
+  vertical-align: middle;
+  margin-left: 34rpx;
+}
+
+.box-warp{
+  width: 100%;
+  padding-left: 37rpx;
+  box-sizing: border-box;
+}
+.box-warp .list{
+  width: 100%;
+  line-height: 128rpx;
+  display: inline-block;
+  border-bottom: 2rpx solid #fafafa;
+  padding-right: 45rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+}
+.box-warp .list .fl-l{
+  float: left;
+}
+.box-warp .list .fl-r{
+  float: right
+}
+
+
+/********************************************/
+
+.fade-warp{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  display: -webkit-box!important;
+  display: -ms-flexbox!important;
+  display: -webkit-flex!important;
+  display: flex!important;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.fade {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  top: 0;
+  left: 0;
+}
+.bindPhone {
+  width: 640rpx;
+  background-color: #fafafc;
+  border-radius: 6rpx;
+  position: relative;
+  z-index: 101;
+}
+.bindPhone .close{
+    top:-23rpx;
+    right:-23rpx;
+}
+
+.bindPhoneTit {
+  width:551rpx;
+  height:117rpx;
+  text-align:center;
+  margin:0 auto;
+  line-height:117rpx;
+  box-sizing:border-box;
+  font-size:30rpx;
+  color:#010101;
+}
+
+.bindPhoneItem {
+  width: 532rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 27rpx;
+  margin: 0 auto;
+  border: 2rpx solid #e1e1e2;
+  border-radius: 5rpx;
+}
+.bindPhoneItem>view.area{
+  width: 131rpx;
+  height: 50rpx;
+  text-indent: 19rpx;
+  display: inline-block;
+  line-height: 50rpx;
+  vertical-align: top;
+  border-right: 1rpx solid #f1f1f1;
+  margin-top: 11rpx;
+}
+.bindPhoneItem>view.area image{
+  width: 21rpx;
+  height: 13rpx;
+  margin-left: 18rpx;
+}
+.bindPhoneItem input {
+  width: 399rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: left;
+  padding-left: 20rpx;
+}
+
+.bindPhoneItem .phoneNumber {
+  width: 360rpx;
+  display: inline-block;
+}
+
+.bindPhoneItem .phoneCode {
+  width: 309rpx;
+  display: inline-block;
+}
+
+.bindPhoneItem .sendCodeBtn {
+  width:200rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  display: inline-block;
+  font-size: 27rpx;
+  color: #1deb1d;
+  vertical-align: top;
+}
+
+.bindPhoneItem .sendCodeBtn.disabled {
+  color: #ccc;
+}
+
+.bindsubmitBox {
+  width: 100%;
+  height: 83rpx;
+  line-height: 83rpx;
+  text-align: center;  
+  border-top: 1rpx solid #d5d5d6;
+}
+
+.bindsubmit {
+  font-size: 31.24rpx;
+  color: #1deb1d;
+}
+
+/*.bindsubmit.disabled {
+  color: #ccc;
+}*/
+
+.other {
+  padding: 10rpx;
+  border: 1px solid #e5e5e5;
+  margin: 20rpx;
+  border-radius: 5rpx;
+}
+
+.other input {
+  width: 100%;
+  height: 50rpx;
+  font-size: 25rpx;
+}

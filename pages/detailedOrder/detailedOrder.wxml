@@ -1,0 +1,93 @@
+<!--pages/detailedOrder/detailedOrder.wxml-->
+<view class="fgx"></view>
+<view class="container {{isAdvert==1?'isAdvert':''}}">
+    <view class="main-list main-list01">
+        <view>状态：{{data.status_name}}</view>
+        <view>订单号：{{data.order_no}}</view>
+        <view>下单时间：{{data.order_time}}</view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list main-list02">
+        <view>
+            <view class="l">商品金额：</view>
+            <view class="r color01">¥{{data.product_totalprice}}</view>
+        </view>
+        <view>
+            <view class="l">收货地址：</view>
+            <view class="r">{{data.address_detail}}</view>
+        </view>
+        <view>
+            <view class="l">收货人：</view>
+            <view class="r">{{data.member_name}}</view>
+        </view>
+        <view wx:if="{{data.expressName}}">
+            <view class="l">快递公司：</view>
+            <view class="r">{{data.expressName}}</view>
+        </view>
+        <view wx:if="{{data.expressNumber}}">
+            <view class="l">快递单号：</view>
+            <view class="r">{{data.expressNumber}}</view>
+        </view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list">
+        <view class="shopName">
+            <view class="l">
+                <image src="{{data.shop_image}}"></image>
+                <text>{{data.shop_name}}</text>
+            </view>
+            <view class="r">共计{{data.pro_total_num}}件商品</view>
+        </view>
+        <view class="shop-list" wx:for="{{data.detailList}}">
+            <!--<navigator url="../detailedCommodity/detailedCommodity?proid={{item.product_id}}">-->
+            <view>
+              <view class="l">
+                  <image src="{{item.product_image}}" mode="aspectFill"></image>
+              </view>
+              <view class="r">
+                  <view class="title">{{item.product_name}}</view>
+                  <view class="price">
+                      <text class="rmb">¥ </text>
+                      <text class="money">{{item.product_price}}</text>
+                  </view>
+                  <view class="specifications">{{item.product_speciname}}/{{item.product_num}}件</view>
+              </view>
+            </view>
+            <view class="btn">
+                <navigator url="../refund/refund?orderId={{data.id}}&orderDetailId={{item.id}}&type=0" wx:if="{{item.isReturnButton == 1}}">申请退款</navigator>
+                <navigator url="../refund/refund?orderId={{data.id}}&orderDetailId={{item.id}}&type=0&id={{item.return_id}}"  wx:if="{{item.isUpdateButton == 1}}">修改退款</navigator>
+                <navigator url="../logistics/logistics?orderId={{data.id}}&orderDetailId={{item.id}}&type=1&id={{item.return_id}}" wx:if="{{item.isWuliuButton == 1}}">填写退货物流信息</navigator>
+                <view bindtap="bindtapRevoke" data-id="{{item.id}}" wx:if="{{item.isCancelButton == 1}}">撤销退款</view>
+            </view>
+        </view>
+    </view>
+
+    <view style="height:18rpx;"></view>
+
+    <view class="main-list main-list03">
+        <view>
+            <view class="l">商品金额</view>
+            <view class="r">¥ {{data.product_totalprice}}</view>
+        </view>
+        <view>
+            <view class="l">运费</view>
+            <view class="r">+ ¥ {{data.freight_money}}</view>
+        </view>
+        <!--<view>
+            <view class="l">积分</view>
+            <view class="r">- 9000.00</view>
+        </view>-->
+        <view class="tr">实付金额：<text class="color01">¥ {{data.order_money}}</text></view>
+
+        <view class="btn">
+            <view wx:if="{{data.isGoPay == 1}}" bindtap="bindtapPay" data-id="{{data.id}}" data-payway="{{data.order_pay_way}}">去支付</view>
+            <view wx:if="{{data.isShouHuo == 1}}" bindtap="bindtapConfirm" data-id="{{data.id}}">确认收货</view>
+        </view>
+    </view>
+
+</view>
+
