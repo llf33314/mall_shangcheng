@@ -127,7 +127,7 @@ Page({
               memberId: wx.getStorageSync('memberId'),
               ids: "[" + id + "]",
             },
-            method: 'GET',
+            method: 'POST',
             header: {
               'content-type': 'application/json'
             },
@@ -241,7 +241,7 @@ Page({
               memberId: wx.getStorageSync('memberId'),
               ids: "[" + arr.toString() + "]",
             },
-            method: 'GET',
+            method: 'POST',
             header: {
               'content-type': 'application/json'
             },

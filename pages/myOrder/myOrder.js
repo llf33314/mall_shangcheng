@@ -9,12 +9,16 @@ Page({
     pageCount: 1,
     navIndex: 0,
     is_lower: false,
+    types: 0
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var self = this;
     option = options;
-    self.setData({ navIndex: options.page || 0 })
+    self.setData({ 
+      navIndex: options.page || 0,
+      types: options.page || 0
+    })
     wx.request({
       url: app.globalData.http + 'orderList.do',
       data: {
@@ -66,7 +70,7 @@ Page({
         memberId: wx.getStorageSync('memberId'),
         busUserId: app.globalData.busId,
         curPage: self.data.curPage,
-        type: option.page || 0
+        type: self.data.types || 0
       },
       method: 'GET',
       header: {
@@ -111,51 +115,59 @@ Page({
     })
   },
   bindtapPay: function(e){
-    //去支付
-    var self = this;
-    wx.request({
-      url: app.globalData.http + 'orderGoPay.do',
-      data: {
-        order_id: e.currentTarget.dataset.id, 
-        memberId: wx.getStorageSync('memberId'), 
-        appid: wx.getStorageSync('appid'), 
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        if(res.data.code == 1){
-          wx.requestPayment({
-            'timeStamp': res.data.timeStamp,
-            'nonceStr': res.data.nonceStr,
-            'package': res.data.prepay_id,
-            'signType': 'MD5',
-            'paySign': res.data.paySign,
-            'success': function (res) {
-              wx.showModal({
-                title: '提示',
-                content: '支付成功！',
-                showCancel: false,
-                success: function (res) {
-                  if (res.confirm) {
-                    wx.navigateBack({
-                      delta: 3
-                    })
+    let payWay = e.currentTarget.dataset.payway;//支付方式
+    if (payWay != 5) {//非扫码支付跳到提交订单页面
+      //去支付
+      wx.navigateTo({
+        url: '../order/order?from=3&orderId=' + e.currentTarget.dataset.id
+      });
+    }else{//扫码支付   直接立即支付 
+      var self = this;
+      wx.request({
+        url: app.globalData.http + 'orderGoPay.do',
+        data: {
+          order_id: e.currentTarget.dataset.id,
+          memberId: wx.getStorageSync('memberId'),
+          appid: wx.getStorageSync('appid'),
+        },
+        method: 'GET',
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          if (res.data.code == 1) {
+            wx.requestPayment({
+              'timeStamp': res.data.timeStamp,
+              'nonceStr': res.data.nonceStr,
+              'package': res.data.prepay_id,
+              'signType': 'MD5',
+              'paySign': res.data.paySign,
+              'success': function (res) {
+                wx.showModal({
+                  title: '提示',
+                  content: '支付成功！',
+                  showCancel: false,
+                  success: function (res) {
+                    if (res.confirm) {
+                      wx.navigateBack({
+                        delta: 3
+                      })
+                    }
                   }
-                }
-              })
-            }
-          })
-        }else{
-          wx.showModal({
-            title: '提示',
-            content: res.data.errorMsg,
-            showCancel: false,
-          })
+                })
+              }
+            })
+          } else {
+            wx.showModal({
+              title: '提示',
+              content: res.data.errorMsg,
+              showCancel: false,
+            })
+          }
         }
-      }
-    })
+      });
+    }
+    
   },
   bindtapConfirm: function(e){
     //确认收货
@@ -181,6 +193,7 @@ Page({
                   data: {
                     memberId: wx.getStorageSync('memberId'),
                     busUserId: app.globalData.busId,
+                    type: self.data.types || 0
                   },
                   method: 'GET',
                   header: {

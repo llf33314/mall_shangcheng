@@ -126,7 +126,7 @@ Page({
         retTelephone: retTelephone, //手机号码,
         retRemark: retRemark, //备注信息  长度不能大于200,
       },
-      method: 'GET',
+      method: 'POST',
       header: {
         'content-type': 'application/json'
       },

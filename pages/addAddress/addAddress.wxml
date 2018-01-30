@@ -45,7 +45,8 @@
     <view class="main-list notBor">
         <view class="list-l">详细地址</view>
         <view class="list-r">
-            <input placeholder="街道门牌信息" value="{{address.memAddress}}" bindinput="bindinputAddress" />
+            <input placeholder="街道门牌信息" value="{{address.memAddress}}" bindinput="bindinputAddress" wx:if="{{!isJuliFreight}}"/>
+            <input placeholder="街道门牌信息" value="{{address.memAddress}}" bindtap="bindLocation" wx:else disabled="true"/>
         </view>
     </view>
 

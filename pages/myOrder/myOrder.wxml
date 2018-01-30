@@ -16,7 +16,7 @@
                   <view class="price">总价：¥{{itemName.order_money}}</view>
               </view>
               <view class="r">
-                  <view wx:if="{{itemName.isGoPay == 1}}" bindtap="bindtapPay" data-id="{{itemName.order_id}}">去支付</view>
+                  <view wx:if="{{itemName.isGoPay == 1}}" bindtap="bindtapPay" data-id="{{itemName.order_id}}" data-payway="{{itemName.order_pay_way}}">去支付</view>
                   <view wx:if="{{itemName.isShouHuo == 1}}" bindtap="bindtapConfirm" data-id="{{itemName.order_id}}">确认收货</view>
                   <!--<view>申请退款</view>
                   <view>修改退款</view>

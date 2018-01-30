@@ -27,38 +27,37 @@ Page({
     var article,
       shopId = options.shopId;
     proid = options.proid;
-    debugger
     self.setData({ memberId: wx.getStorageSync('memberId') })
     if (shopId) wx.setStorageSync('shopId', shopId);
-      // util.login(app, function () {
-      //   wx.request({
-      //     url: app.globalData.http + 'phoneProduct.do',
-      //     data: {
-      //       shopId: wx.getStorageSync('shopId'),
-      //       memberId: wx.getStorageSync('memberId'),
-      //       productId: proid,
-      //       province: 0
-      //     },
-      //     method: 'GET',
-      //     header: {
-      //       'content-type': 'application/json'
-      //     },
-      //     success: function (res) {
-      //       if (res.data.defaultInvMap) {
-      //         self.setData({ data: res.data, address: res.data.address, specValueId: res.data.defaultInvMap.xids.split(","), shopDetailsBool: 0, shopCartNum: res.data.shopCartNum });
-      //       } else {
-      //         self.setData({ data: res.data, address: res.data.address, specValueId: '', shopDetailsBool: 0, shopCartNum: res.data.shopCartNum });
-      //       }
-      //       self.setData({ product_type_id: res.data.product_type_id })
-      //       article = res.data.product_detail;
-      //       WxParse.wxParse('article', 'html', article, self, 5)
-      //     }
-      //   })
-      // });
+    // util.login(app, function () {
+    //   wx.request({
+    //     url: app.globalData.http + 'phoneProduct.do',
+    //     data: {
+    //       shopId: wx.getStorageSync('shopId'),
+    //       memberId: wx.getStorageSync('memberId'),
+    //       productId: proid,
+    //       province: 0
+    //     },
+    //     method: 'GET',
+    //     header: {
+    //       'content-type': 'application/json'
+    //     },
+    //     success: function (res) {
+    //       if (res.data.defaultInvMap) {
+    //         self.setData({ data: res.data, address: res.data.address, specValueId: res.data.defaultInvMap.xids.split(","), shopDetailsBool: 0, shopCartNum: res.data.shopCartNum });
+    //       } else {
+    //         self.setData({ data: res.data, address: res.data.address, specValueId: '', shopDetailsBool: 0, shopCartNum: res.data.shopCartNum });
+    //       }
+    //       self.setData({ product_type_id: res.data.product_type_id })
+    //       article = res.data.product_detail;
+    //       WxParse.wxParse('article', 'html', article, self, 5)
+    //     }
+    //   })
+    // });
     wx.request({
       url: app.globalData.http + 'phoneProduct.do',
       data: {
-        shopId: wx.getStorageSync('shopId'),
+        shopId: wx.getStorageSync('shopId') || '',
         memberId: wx.getStorageSync('memberId') || '',
         productId: proid,
         province: 0
@@ -75,7 +74,7 @@ Page({
         }
         self.setData({ product_type_id: res.data.product_type_id })
         article = res.data.product_detail;
-        if (article)WxParse.wxParse('article', 'html', article, self, 5)
+        if (article) WxParse.wxParse('article', 'html', article, self, 5)
       }
     })
   },
@@ -89,24 +88,6 @@ Page({
   },
   onShow: function () {
     // 页面显示
-    var self = this;
-    var article;
-    wx.request({
-      url: app.globalData.http + 'phoneProduct.do',
-      data: {
-        shopId: wx.getStorageSync('shopId'),
-        memberId: wx.getStorageSync('memberId'),
-        productId: proid,
-        province: 0
-      },
-      method: 'GET',
-      header: {
-        'content-type': 'application/json'
-      },
-      success: function (res) {
-        self.setData({ address: res.data.address });
-      }
-    })
   },
   onHide: function () {
     // 页面隐藏
@@ -194,25 +175,26 @@ Page({
     //加入购物车
     var self = this;
     var defaultInvMap = self.data.data.defaultInvMap || {};
-    if (!wx.getStorageSync('memberId')){
-      util.login(app,function(){
+    if (!wx.getStorageSync('memberId')) {
+      var shopCart = {
+        userId: wx.getStorageSync('memberId'),
+        shopId: wx.getStorageSync('shopId'),
+        productId: proid,
+        productNum: self.data.productNum,
+        productSpecificas: self.data.specValueId.toString(),
+        productSpeciname: defaultInvMap.specifica_name,
+        price: self.data.data.product_price,
+        primaryPrice: self.data.data.product_price,
+
+        busUserId: app.globalData.busId,
+        //proCode:self.data.productNum,
+        discount: "1",
+      }
+      util.login(app, function () {
         wx.request({
           url: app.globalData.http + 'addshopping.do',
           data: {
-            shopCart: {
-              userId: wx.getStorageSync('memberId'),
-              shopId: wx.getStorageSync('shopId'),
-              productId: proid,
-              productNum: self.data.productNum,
-              productSpecificas: self.data.specValueId.toString(),
-              productSpeciname: defaultInvMap.specifica_name,
-              price: self.data.data.product_price,
-              primaryPrice: self.data.data.product_price,
-
-              busUserId: app.globalData.busId,
-              //proCode:self.data.productNum,
-              discount: "1",
-            },
+            shopCart: JSON.stringify(shopCart),
           },
           method: 'GET',
           header: {
@@ -237,24 +219,25 @@ Page({
           }
         })
       })
-    }else{
+    } else {
+      var shopCart = {
+        userId: wx.getStorageSync('memberId'),
+        shopId: wx.getStorageSync('shopId'),
+        productId: proid,
+        productNum: self.data.productNum,
+        productSpecificas: self.data.specValueId.toString(),
+        productSpeciname: defaultInvMap.specifica_name,
+        price: self.data.data.product_price,
+        primaryPrice: self.data.data.product_price,
+
+        busUserId: app.globalData.busId,
+        //proCode:self.data.productNum,
+        discount: "1",
+      };
       wx.request({
         url: app.globalData.http + 'addshopping.do',
         data: {
-          shopCart: {
-            userId: wx.getStorageSync('memberId'),
-            shopId: wx.getStorageSync('shopId'),
-            productId: proid,
-            productNum: self.data.productNum,
-            productSpecificas: self.data.specValueId.toString(),
-            productSpeciname: defaultInvMap.specifica_name,
-            price: self.data.data.product_price,
-            primaryPrice: self.data.data.product_price,
-
-            busUserId: app.globalData.busId,
-            //proCode:self.data.productNum,
-            discount: "1",
-          },
+          shopCart: JSON.stringify(shopCart)
         },
         method: 'GET',
         header: {
@@ -279,7 +262,7 @@ Page({
         }
       })
     }
-    
+
   },
   bindtapRightOff: function (e) {
     var self = this,
@@ -294,17 +277,17 @@ Page({
       return false;
     }
 
-    if (wx.getStorageSync('memberId')){
+    if (wx.getStorageSync('memberId')) {
       wx.navigateTo({
         url: '../order/order?from=2&product_id=' + proid + '&product_specificas=' + self.data.specValueId.toString() + '&product_num=' + self.data.productNum + '&product_price=' + self.data.data.product_price + '&primary_price=' + self.data.data.product_price
       })
-    }else{
-      util.login(app,function(){
+    } else {
+      util.login(app, function () {
         wx.navigateTo({
           url: '../order/order?from=2&product_id=' + proid + '&product_specificas=' + self.data.specValueId.toString() + '&product_num=' + self.data.productNum + '&product_price=' + self.data.data.product_price + '&primary_price=' + self.data.data.product_price
         })
       })
     }
-    
+
   },
 })

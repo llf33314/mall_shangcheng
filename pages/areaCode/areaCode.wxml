@@ -1,0 +1,39 @@
+<view class='container'>
+  <view class='header'>
+    <input placeholder="搜索国家/地区" bindblur="bindKeyBlur" value='{{searchinput}}'/>
+    <label></label>
+    <image src='../../images/icon_close.jpg' bindtap='tapClear'></image>
+  </view>
+  <view class='box-warp'>
+
+    <view class='list' wx:for="{{findData}}" bindtap='tapArea' data-area="{{item}}">
+      <view class='fl-l'>{{item.country}}</view>
+      <view class='fl-r'>+{{item.areacode}}</view>
+    </view>
+
+  </view>
+</view>
+
+<view class='fade-warp'>
+  <view class="fade"></view>
+  <view class="bindPhone">
+    <view class="bindPhoneTit">绑定手机号</view>
+    <view class="bindPhoneItem">
+      <view class="area">+86<image src='../../images/user_icon16.jpg'></image></view>
+      <input type="number" class="phoneNumber" placeholder="请输入手机号码" />
+      <!--<view class="phoneNumber"><input type="number" focus="true" class="" /></view>-->
+    </view>
+    <view style="height:19rpx;"></view>
+    <view class="bindPhoneItem">
+      <input type="number" maxlength="6" class="phoneCode" placeholder="请输入验证码" />
+      <!--<view class="phoneCode"><input type="number" maxlength="6" class="" /></view>-->
+      <view type="default" class="sendCodeBtn" wx:if="{{countDown<=0}}">获取验证码</view>
+      <view type="default" class="sendCodeBtn disabled" wx:else>获取验证码({{countDown}}s)</view>
+    </view>
+    <view style="height:40rpx;"></view>
+    <view class="bindsubmitBox">
+      <view class="bindsubmit" wx:if="{{phone!=''&&code!=''}}">确定</view>
+      <view class="bindsubmit disabled" wx:else>确定</view>
+    </view>
+  </view>
+</view>

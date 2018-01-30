@@ -42,12 +42,17 @@ function login(app,callback){
                 },
                 success: function (res2) {
                   if (res2.data.success) {
-                  //if (!res2.data.success) {
+                  // if (!res2.data.success) {
                     //登录成功
                     wx.setStorageSync('phone', res2.data.member.phone);
                     wx.setStorageSync('memberId', res2.data.memberId);
+                    //调试环境用户
                     // wx.setStorageSync('phone', 15017934717);
                     // wx.setStorageSync('memberId', 1225352);
+
+                    //测试环境用户
+                    // wx.setStorageSync('phone', 15017934717);
+                    // wx.setStorageSync('memberId', 1225326);
                     wx.setStorageSync('appid', app.globalData.appid);
                     wx.setStorageSync('isAdvert', res2.data.isAdvert);
                     if (callback) callback(res2)
@@ -58,6 +63,13 @@ function login(app,callback){
                       showCancel: false,
                     })
                   }
+                },
+                fail: function (e) {
+                  wx.showModal({
+                    title: '提示',
+                    content: '授权失败!',
+                    showCancel: false,
+                  })
                 }
               })
             },

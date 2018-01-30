@@ -84,8 +84,8 @@
         <view class="tr">实付金额：<text class="color01">¥ {{data.order_money}}</text></view>
 
         <view class="btn">
-            <view wx:if="{{data.isGoPay == 1}}">去支付</view>
-            <view wx:if="{{data.isShouHuo == 1}}" bindtap="bindtapConfirm">确认收货</view>
+            <view wx:if="{{data.isGoPay == 1}}" bindtap="bindtapPay" data-id="{{data.id}}" data-payway="{{data.order_pay_way}}">去支付</view>
+            <view wx:if="{{data.isShouHuo == 1}}" bindtap="bindtapConfirm" data-id="{{data.id}}">确认收货</view>
         </view>
     </view>
 

@@ -14,7 +14,8 @@
     "pages/classification/classification",
     "pages/twoMenu/twoMenu",
     "pages/shop/shop",
-    "pages/user/user"
+    "pages/user/user",
+    "pages/areaCode/areaCode"
   ],
   "ext": {
     "name": "wechat",

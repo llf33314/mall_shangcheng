@@ -23,10 +23,12 @@ Page({
     memProvince: 0,             //省份id
     memCity: 0,                 //城市id
     memArea: 0,                 //区id
+    memLatitude: "",            //纬度
+    memLongitude: "",           //经度
 
     repeatSubmit: 0,
-    isAdvert: wx.getStorageSync('isAdvert')
-
+    isAdvert: wx.getStorageSync('isAdvert'),
+    isJuliFreight: false,//true 按距离计算运费，因此要从地图选择详细地址
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
@@ -37,7 +39,8 @@ Page({
       data: {
         id: id || "",
         busUserId: app.globalData.busId,
-        memberId: wx.getStorageSync('memberId')
+        memberId: wx.getStorageSync('memberId'),
+        shopId: wx.getStorageSync('shopId')
       },
       method: 'GET',
       header: {
@@ -61,20 +64,26 @@ Page({
         self.setData({
           provinceList: res.data.provinceList, 
           provinces: self.data.provinces, 
-          provinceNum: provinceNum
+          provinceNum: provinceNum,
+          isJuliFreight: res.data.isJuliFreight == 1 ? true : false
         })
+        // console.log(self.data.isJuliFreight)
 
         if(res.data.address){
-          var memCity = res.data.address.memCity,
-              memArea = res.data.address.memArea;
+          var _address = res.data.address;
+          var memCity = _address.memCity,
+            memArea = _address.memArea;
           self.setData({
-            address: res.data.address,
-            memName: res.data.address.memName,                 //收货人姓名
-            memPhone: res.data.address.memPhone,               //收货人联系方式
-            memAddress: res.data.address.memAddress,           //收货人地址
+            address: _address,
+            memName: _address.memName,                 //收货人姓名
+            memPhone: _address.memPhone,               //收货人联系方式
+            memAddress: _address.memAddress,           //收货人地址
             memProvince: memProvince,
             memCity: memCity,
-            memArea: memArea
+            memArea: memArea,
+            memLatitude: _address.memLatitude,
+            memLongitude: _address.memLongitude,
+            memDefault: _address.memDefault
           })
 
           wx.request({
@@ -203,12 +212,34 @@ Page({
     //   }
     // })
   },
+  bindLocation: function (e) {
+    var self = this;
+    if (self.data.isJuliFreight){
+      //弹出地址选择
+      wx.chooseLocation({
+        success: function(e){
+          if (e.name == ""){
+            wx.showModal({ title: '提示', content: '请重新选择详细地址', showCancel: false });
+            return false;
+          }
+          var address = self.data.address;
+          address.memAddress = e.name;
+          self.setData({
+            memLongitude: e.longitude,
+            memLatitude: e.latitude,
+            memAddress: e.name,
+            address: address
+          });
+          //console.log(self.data.address,"self.data.address.memAddress")
+        }
+      })
+    }
+  },
   bindinputPhone: function(e){
     this.data.memPhone = e.detail.value;
   },
   bindtapSubmit: function(){
-    var self = this;
-    
+    var self = this;    
     if(self.data.memName == ""){
       wx.showModal({title: '提示',content: '收货人不能为空',showCancel: false})
       return false;
@@ -229,10 +260,19 @@ Page({
       return false;
     }
 
+    var _myData = self.data;
+    if (self.data.isJuliFreight) {
+      if (_myData.memLatitude == "" || _myData.memLongitude == "") {
+        wx.showModal({ title: '提示', content: '请重新选择详细地址', showCancel: false })
+        return false;
+      }
+    }
+
     if (self.data.repeatSubmit == 0) self.data.repeatSubmit = 1;
     else return false;
 
     console.log("防止重复提交")
+    console.log(self.data)
 
     wx.request({
       url: app.globalData.http + 'addressSubmit.do',
@@ -245,7 +285,9 @@ Page({
         memProvince: self.data.memProvince,
         memCity: self.data.memCity,
         memArea: self.data.memArea,
-        dfMemberId: wx.getStorageSync('memberId')
+        dfMemberId: wx.getStorageSync('memberId'),
+        memLongitude: self.data.memLongitude,
+        memLatitude: self.data.memLatitude
       },
       method: 'GET',
       header: {

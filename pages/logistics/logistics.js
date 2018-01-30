@@ -131,7 +131,7 @@ Page({
         wlRemark: wlRemark,//填写物流信息的备注
 
       },
-      method: 'GET',
+      method: 'POST',
       header: {
         'content-type': 'application/json'
       },

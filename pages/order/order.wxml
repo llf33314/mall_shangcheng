@@ -39,13 +39,16 @@
         </view>
       </view>
     </view>
-    <view class="main-list yhq" bindtap="bindtapYHQ" data-index="{{index}}" wx:if="{{item.duofenCoupon || item.coupon}}">
+    <view class="main-list yhq" bindtap="bindtapYHQ" data-index="{{index}}" wx:if="{{item.couponsList }}">
       <text class="l">优惠券</text>
-      <view class="r" wx:if="{{item.duofenCoupon || item.coupon}}">
+      <view class="r" wx:if="{{item.couponsList }}">
         <view wx:if="{{yhqList[index]}}">
-          <text wx:if="{{yhqList[index].card_type == 'DISCOUNT' || yhqList[index].card_type == 0}}">{{yhqList[index].discount}}折</text>
-          <text wx:else>满 ¥{{yhqList[index].cash_least_cost}} 减 ¥{{yhqList[index].reduce_cost}}</text>
-          <text wx:if="{{yhqList[index].countId>1&&yhqList[index].addUser==1}}">* {{yhqList[index].countId}}</text>
+          <!--<text wx:if="{{yhqList[index].card_type == 'DISCOUNT' || yhqList[index].card_type == 0}}">{{yhqList[index].discount}}折</text>
+          <text wx:else>满 ¥{{yhqList[index].cash_least_cost}} 减 ¥{{yhqList[index].reduce_cost}}</text>-->
+          
+
+          <text >{{yhqList[index].couponsName}}</text>
+          <text wx:if="{{yhqList[index].couponNum>0&&yhqList[index].addUser==1}}">* {{yhqList[index].useCouponNum || yhqList[index].couponNum}}</text>
         </view>
         <view wx:else>
           <text>您还没有选择优惠券</text>
@@ -66,13 +69,42 @@
     <view style="height:18rpx;"></view>
   </view>
 
+
+  
+  <view class="switch" wx:if="{{data.unionStatus == 1 && data.unionDiscount > 0 && data.unionDiscount < 1}}" style="line-height:36px;">
+    <view class="l">
+      <view class="t">联盟折扣</view>
+    </view>
+    <view class="r">
+      <switch type="switch" bindchange="bindchangeUnionDiscount" color="#e4393c" />
+    </view>
+  </view>
+
+  <view style="height:18rpx;"></view>
+
+  <view class="switch" wx:if="{{data.isDiscount == 1 && discount > 0 && discount < 1}}" style="line-height:36px;">
+    <view class="l">
+      <view class="t">折扣</view>
+    </view>
+    <view class="r">
+      
+      <switch type="switch" bindchange="bindchangeDiscount" color="#e4393c" checked />
+    </view>
+  </view>
+
+
+  <view style="height:18rpx;"></view>
+
+
   <view class="switch" wx:if="{{fenbi}}">
     <view class="l">
       <view class="t">粉币</view>
-      <view class="b">可用{{fenbi}}粉币抵扣 ¥{{fenbi_money}}</view>
+      <view class='b' wx:if="{{fenbiDisabled == 1}}">不可用</view>
+      <view class="b" wx:else>可用{{fenbi}}粉币抵扣 ¥{{fenbi_money}}</view>
     </view>
     <view class="r">
-      <switch type="switch" bindchange="bindchangeFB" color="#e4393c" />
+      <switch type="switch" bindchange="bindchangeFB" color="#e4393c" wx:if="{{fenbiDisabled == 0}}"/>
+      <switch type="switch" color="#e4393c" wx:else disabled/>
     </view>
   </view>
 
@@ -81,10 +113,12 @@
   <view class="switch" wx:if="{{integral}}">
     <view class="l">
       <view class="t">积分</view>
-      <view class="b">可用{{integral}}积分抵扣 ¥{{integral_money}}</view>
+      <view class='b' wx:if="{{jifenDisabled == 1}}">不可用</view>
+      <view class="b" wx:else>可用{{integral}}积分抵扣 ¥{{integral_money}}</view>
     </view>
     <view class="r">
-      <switch type="switch" bindchange="bindchangeJF" color="#e4393c" />
+      <switch type="switch" bindchange="bindchangeJF" color="#e4393c" wx:if="{{jifenDisabled == 0}}"/>
+      <switch type="switch" color="#e4393c" wx:else disabled/>
     </view>
   </view>
 
@@ -94,17 +128,21 @@
     <view class="l">
       <view>商品金额</view>
       <view>运费</view>
-      <view>优惠券</view>
-      <view>粉币</view>
-      <view>积分</view>
+      <view wx:if="{{unionDiscountMoney > 0}}">联盟折扣</view>
+      <view wx:if="{{memberDiscountMoney > 0}}">会员折扣</view>
+      <view wx:if="{{yhqDiscountMoney > 0}}">优惠券</view>
+      <view wx:if="{{fenbiDiscountMoney > 0}}">粉币</view>
+      <view wx:if="{{jifenDiscountMoney > 0}}">积分</view>
     </view>
 
     <view class="r color01">
       <view>¥ {{data.totalProMoney}}</view>
       <view>+ ¥ {{data.totalFreightMoney}}</view>
-      <view>- ¥ {{yhqDiscountMoney}}</view>
-      <view>- ¥ {{fenbiDiscountMoney}}</view>
-      <view>- ¥ {{jifenDiscountMoney}}</view>
+      <view wx:if="{{unionDiscountMoney > 0}}">- ¥ {{unionDiscountMoney}}</view>
+      <view wx:if="{{memberDiscountMoney > 0}}">- ¥ {{memberDiscountMoney}}</view>
+      <view wx:if="{{yhqDiscountMoney > 0}}">- ¥ {{yhqDiscountMoney}}</view>
+      <view wx:if="{{fenbiDiscountMoney > 0}}">- ¥ {{fenbiDiscountMoney}}</view>
+      <view wx:if="{{jifenDiscountMoney > 0}}">- ¥ {{jifenDiscountMoney}}</view>
     </view>
   </view>
   <view class="main-list noBor text-r">
@@ -130,19 +168,18 @@
     </view>
     <scroll-view scroll-y="true" style="max-height:360rpx;">
 
-      <view class="list" wx:for="{{data.shopList[yhqIndex].duofenCoupon}}" bindtap="bindtapUseYHQ" data-obj="{{data.shopList[yhqIndex].duofenCoupon[index]}}">
+      <view class="list" wx:for="{{data.shopList[yhqIndex].couponsList}}" bindtap="bindtapUseYHQ" data-obj="{{data.shopList[yhqIndex].couponsList[index]}}">
         <image class="l" src="{{picUrl + item.image}}"></image>
-        <view wx:if="{{item.card_type == 0}}">{{item.discount}}折 <text wx:if="{{item.addUser == 1}}">×{{item.countId}}</text></view>
-        <view wx:if="{{item.card_type == 1}}">满 ¥{{item.cash_least_cost}}减 ¥{{item.reduce_cost}} <text wx:if="{{item.addUser == 1}}">×{{item.countId}}</text></view>
+        <view >{{item.couponsName}} <text wx:if="{{item.addUser == 1 && item.couponNum > 0}}">×{{item.couponNum}}</text></view>
         <image class="r" src="http://maint.duofriend.com/upload//image/3/gt123/3/20170608/775FB6E56E39268B242F6F4FA10B7912.png"></image>
       </view>
 
-      <view class="list" wx:for="{{data.shopList[yhqIndex].coupon}}" bindtap="bindtapUseYHQ" data-obj="{{data.shopList[yhqIndex].coupon[index]}}">
+      <!--<view class="list" wx:for="{{data.shopList[yhqIndex].coupon}}" bindtap="bindtapUseYHQ" data-obj="{{data.shopList[yhqIndex].coupon[index]}}">
         <image class="l" src="{{item.image}}"></image>
         <view wx:if="{{item.card_type == 'DISCOUNT'}}">{{item.discount}}折</view>
         <view wx:if="{{item.card_type == 'CASH'}}">满 ¥{{item.cash_least_cost}}减 ¥{{item.reduce_cost}}</view>
         <image class="r" src="http://maint.duofriend.com/upload//image/3/gt123/3/20170608/775FB6E56E39268B242F6F4FA10B7912.png"></image>
-      </view>
+      </view>-->
 
     </scroll-view>
     <view class="list" style="border-top: 1rpx solid #e9e9e9;" bindtap="bindtapUseYHQ" data-obj="">
@@ -156,6 +193,11 @@
   <view class="bindPhone">
     <view class="bindPhoneTit">绑定手机号</view>
     <view class="bindPhoneItem">
+      <!--<navigator url="../areaCode/areaCode" class='areaCode'>
+        <view>+<view>86</view>
+          <image src='../../images/user_icon15.png' mode='aspectFit'></image>
+        </view>
+      </navigator>-->
       <input type="number" class="phoneNumber" bindinput="bindinputPhone" placeholder="请输入手机号码" />
       <!--<view class="phoneNumber"><input type="number" focus="true" class="" /></view>-->
     </view>

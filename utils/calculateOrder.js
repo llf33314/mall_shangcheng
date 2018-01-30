@@ -52,11 +52,13 @@ function calculateOrder(data) {
 function caculationMemberDiscount(data) {
   data.memberDiscountMoney = 0;//清空会员折扣
   if (data.isUseDiscount != 1) {
+    data.isUseDiscount = 0;
     //没有使用折扣
     return data;
   }
   let memberDiscount = data.discount;//会员运折扣数
   if (memberDiscount == null || memberDiscount == "" || memberDiscount < 0 || memberDiscount >= 1) {
+    data.isUseDiscount = 0;
     return data;
   }
   let busCanUseDiscountProductPrice = 0;//定义能使用会员折扣的商品总价
@@ -73,6 +75,7 @@ function caculationMemberDiscount(data) {
   });
 
   if (busCanUseDiscountProductPrice == 0) {
+    data.isUseDiscount = 0;
     return data;
   }
   //计算店铺下所有商品优惠后的金额 busCanUseDiscountProductPrice*memberDiscount 
@@ -328,6 +331,7 @@ function caculationJifenDiscount(data) {
 //计算优惠券抵扣
 function caculationYhqDiscount(data) {
   data.yhqDiscountMoney = 0;
+  let couponIds = [];
   //循环店铺
   for (let i = 0; i < data.data.shopList.length; i++) {
     let shop = data.data.shopList[i];
@@ -415,6 +419,22 @@ function caculationYhqDiscount(data) {
       data.yhqList[i] = "";
       continue;
     }
+    if (couponIds != null && couponIds.length > 0) {
+      let flag = true;
+      couponIds.forEach((element, index) => {
+        if (element == coupons.id) flag = false;
+      });
+      if (!flag) {
+        wx.showModal({
+          title: '提示',
+          content: "该优惠券已被使用，请重新选择优惠券",
+          showCancel: false,
+        });
+        data.yhqList[i] = "";
+        continue;
+      }
+    }
+    couponIds.push(coupons.id);
     // console.log("shopYouhuiHouTotalPrice",shopYouhuiHouTotalPrice)
     let useCouponTotalPrice = 0;//已使用优惠券的商品金额
     let useCouponTotalNum = 0;//已使用优惠券的商品数量
