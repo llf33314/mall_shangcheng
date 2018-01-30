@@ -9,12 +9,16 @@ Page({
     pageCount: 1,
     navIndex: 0,
     is_lower: false,
+    types: 0
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var self = this;
     option = options;
-    self.setData({ navIndex: options.page || 0 })
+    self.setData({ 
+      navIndex: options.page || 0,
+      types: options.page || 0
+    })
     wx.request({
       url: app.globalData.http + 'orderList.do',
       data: {
@@ -66,7 +70,7 @@ Page({
         memberId: wx.getStorageSync('memberId'),
         busUserId: app.globalData.busId,
         curPage: self.data.curPage,
-        type: option.page || 0
+        type: self.data.types || 0
       },
       method: 'GET',
       header: {
@@ -189,6 +193,7 @@ Page({
                   data: {
                     memberId: wx.getStorageSync('memberId'),
                     busUserId: app.globalData.busId,
+                    type: self.data.types || 0
                   },
                   method: 'GET',
                   header: {

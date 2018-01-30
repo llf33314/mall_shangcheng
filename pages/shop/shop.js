@@ -286,7 +286,7 @@ Page({
         memberId: wx.getStorageSync('memberId'), 
         cart: cart
       },
-      method: 'POST',
+      method: 'GET',
       header: {
         'content-type': 'application/json'
       },
